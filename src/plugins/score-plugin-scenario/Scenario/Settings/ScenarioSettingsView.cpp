@@ -439,7 +439,9 @@ View::View() : m_widg{new QWidget}
 {
   auto lay = new QFormLayout;
   m_widg->setLayout(lay);
-  lay->setLabelAlignment(Qt::AlignRight);
+  lay->setLabelAlignment(Qt::AlignLeft);
+  lay->setSpacing(10);
+
   // SKIN
   {
     m_skin = new QComboBox;
@@ -520,9 +522,9 @@ View::View() : m_widg{new QWidget}
       [=](const QTime& t) { DefaultDurationChanged(TimeVal{t}); });
   lay->addRow(tr("New score duration"), m_defaultDur);
 
-  m_sequence = new QCheckBox{m_widg};
+  m_sequence = new QCheckBox{tr("Auto-Sequence"), m_widg};
   connect(m_sequence, &QCheckBox::toggled, this, &View::AutoSequenceChanged);
-  lay->addRow(tr("Auto-Sequence"), m_sequence);
+  lay->addRow(m_sequence);
 
   SETTINGS_UI_TOGGLE_SETUP("Time Bar", TimeBar);
   SETTINGS_UI_TOGGLE_SETUP("Show musical metrics", MeasureBars);
